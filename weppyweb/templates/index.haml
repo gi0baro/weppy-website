@@ -1,0 +1,92 @@
+- extend 'layout.haml'
+
+- starturl = url('docs.page', ['latest', 'quickstart'])
+
+.logo-big
+    %img{src: "{{=url('static', 'logo-big.png')}}"}
+
+.pure-g
+    .pure-u-1.pure-u-md-1-4
+    .pure-u-1.pure-u-md-1-2.center
+        .mainquote.m20
+            weppy is a full-stack python framework that includes everything needed to easily create fast, scalable and secure web applications.
+        %code
+            $ pip install weppy
+    .pure-u-1.pure-u-md-1-4
+.pure-g.m30
+    .pure-u-1.pure-u-md-1-3
+    .pure-u-1.pure-u-md-1-3.center
+        %em
+            Latest version: 0.1 (alpha)
+    .pure-u-1.pure-u-md-1-3
+.pure-g.m20
+    .pure-u-1.pure-u-md-1-4
+        %h3 What's in the box?
+        %ul
+            %li
+                Simple
+                %a{href: "{{=starturl+'#expose-and-routing'}}"}
+                    routing system
+            %li
+                Powerful and friendly
+                %a{href: "{{=starturl+'#rendering-the-output'}}"}
+                    templating system
+            %li
+                Integrated
+                %a{href: "{{=starturl+'#using-a-database'}}"}
+                    Database Abstraction Layer
+            %li
+                Integrated
+                %a{href: "{{=starturl+'#the-authorization-layer'}}"}
+                    authentication system
+            %li
+                Handy
+                %a{href: "{{=starturl+'#creating-forms'}}"}
+                    forms generation
+            %li
+                Integrated
+                %a{href: "{{=starturl+'#languages-and-translation'}}"}
+                    multi-language system
+            %li Assets management (via extension)
+            %li Haml templating (via extension)
+    .pure-u-1.pure-u-md-1-8
+    .pure-u-1.pure-u-md-1-4
+        %h3 To whom is addressed to?
+        %ul
+            %li
+                %em Humans
+                first of all
+            %li
+                %em Programmers
+                who want to focus on the application rather on constantly getting the framework working
+            %li
+                %em Enthusiasts
+                who need to rapidly get a prototype working out of the box
+            %li
+                %em Perfectionists
+                who need to scale their prototype to the world
+    .pure-u-1.pure-u-md-1-8
+    .pure-u-1.pure-u-md-1-4
+        %h3 How to get started?
+        %ul
+            %li
+                Read the
+                %a{href: "{{=url('docs.home', 'latest')}}"}
+                    documentation
+            %li
+                %a{href: "https://github.com/gi0baro/weppy"}
+                    Fork it
+                on github
+            %li
+                Add
+                %a{href: "https://github.com/gi0baro/weppy/issues"}
+                    issues and feature requests
+            %li
+                Make your own
+                %a{href: "#"}
+                    extensions
+
+:javascript
+    //$('header').css('visibility', 'hidden');
+    //$('nav').css('visibility', 'visible');
+    $('body').addClass('home');

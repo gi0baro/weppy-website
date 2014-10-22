@@ -1,0 +1,44 @@
+!!! 5
+%html
+    %head
+        %title {{=current.response.meta.title or "weppy - the web framework for humans"}}
+        %meta{name: "viewport", content:"width=device-width, initial-scale=1"}
+
+        - include_meta
+
+        - include_helpers
+
+        %link{href: "http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic", rel: "stylesheet", type:"text/css"}
+        %link{href: "http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700", rel: "stylesheet", type:"text/css"}
+        - include_static 'pure-min.css'
+        - include_static 'grids-responsive-min.css'
+        - include_static 'main.css'
+        - include_static 'highlight.css'
+        - include_static 'highlight.pack.js'
+
+        - block head
+        - end
+
+    %body
+
+        %header
+            .logo
+                %img{src: "{{=url('static', 'logo.png')}}", height: "55"}
+            %nav.clearfix
+                %a{href: "{{=url('index')}}"}
+                    Home
+                %a{href: "{{=url('docs.home', 'latest')}}"}
+                    Docs
+                %a{href: "#"}
+                    Extensions
+
+        .box
+            - block center
+            - include
+            - end
+
+        %footer
+            %p copyright 2014 by Giovanni Barillari
+
+        :javascript
+            hljs.initHighlightingOnLoad();

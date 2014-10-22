@@ -1,0 +1,202 @@
+body {
+    font-family: "Source Sans Pro", sans-serif;
+    /*font-size: 15px;*/
+    font-size: 16px;
+    /*font-weight: 300;*/
+    line-height: 1.45;
+    color: #333;
+    background-color: #fff;
+}
+
+html, button, input, select, textarea, .pure-g [class *= "pure-u"] {
+    /* Set your content font stack here: */
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+/*b, strong {
+    font-weight: 600;
+}*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 300;
+    line-height: 1.1;
+    color: inherit;
+    margin: 1.8em 0 1em 0;
+    text-align: start;
+}
+
+h1 {
+    font-size: 2.6em;
+}
+
+h2 {
+    font-size: 2.15em;
+}
+
+h3 {
+    font-size: 1.7em;
+}
+
+h4 {
+    font-size: 1.25em;
+}
+
+a {
+    /*color: #259dff;*/
+    color: #6ca7ca;
+    text-decoration: none;
+}
+
+nav {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 100;
+}
+
+nav a {
+    color: #7B838A;
+}
+
+nav a {
+    margin: 0 5px;
+    padding-right: 15px;
+}
+
+nav a.active {
+    font-weight: bold;
+    color: #353535;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,.9);
+    width: 100%;
+    height: 55px;
+    z-index: 100;
+    border-bottom: 1px solid #ddd;
+}
+
+.home header {
+    background: rgba(255,255,255,1);
+    border-bottom: 0;
+    box-shadow: 0 8px 12px #fff;
+}
+
+footer {
+    text-align: right;
+    margin: 20px;
+}
+
+blockquote {
+    border-left: 10px solid #eee;
+    margin: 0 0 1.1em;
+    background-color: #f8f8f8;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 15px 20px;
+}
+
+blockquote p {
+    font-weight: 300;
+    font-size: 1em;
+}
+
+code, pre {
+    font-family: "Source Code Pro", monospace;
+    font-size: 14px;
+    padding: 2px 4px;
+    color: #000;
+    background-color: rgba(0,0,0,0.04);
+    border-radius: 4px;
+}
+
+table caption+thead tr:first-child th, table caption+thead tr:first-child td, table colgroup+thead tr:first-child th, table colgroup+thead tr:first-child td, table thead:first-child tr:first-child th, table thead:first-child tr:first-child td {
+    border-top: 0;
+}
+
+table th {
+    font-weight: bold;
+}
+
+table thead th {
+    vertical-align: bottom;
+}
+
+table th, table td {
+    padding: 8px;
+    line-height: 20px;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+th {
+    text-align: left;
+}
+
+.hljs {
+    background-color: transparent !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.box {
+    margin: 65px auto 20px;
+}
+
+.m20 {
+    margin: 20px;
+}
+
+.m30 {
+    margin: 30px;
+}
+
+.logo {
+    position: fixed;
+    top: 0;
+    margin: 0;
+    padding: 0 25px;
+    width: auto;
+    height: 55px;
+    border-left: none;
+}
+
+.home .logo {
+    visibility: hidden;
+}
+
+.logo-big {
+    width: 80%;
+    height: auto;
+    max-width: 480px;
+    margin: auto;
+}
+
+.logo-big img {
+    width: 100%;
+    height: auto;
+}
+
+.mainquote {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.tree-chapter {
+    font-size: 1.25em;
+}
+
+.page-sections {
+    position: fixed;
+}
+
+.page-sections li {
+    list-style: none;
+}
