@@ -3,7 +3,7 @@ from weppy import App, Cache
 
 ## init our app
 app = App(__name__)
-app.config.static_version = '1.0.0'
+app.config.static_version = '1.0.1'
 app.config.static_version_urls = True
 app.config.url_default_namespace = "main"
 

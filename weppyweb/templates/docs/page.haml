@@ -24,8 +24,8 @@
     .navigator-left
         - if prev
             %a{href: "./{{=prev[1]}}"}
-                = "< Previous: "+prev[0]
+                = "< "+prev[0]
     .navigator-right
         - if after
             %a{href: "./{{=after[1]}}"}
-                = "Next: "+after[0]+">"
+                = after[0]+" >"
