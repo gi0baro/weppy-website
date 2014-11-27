@@ -5,6 +5,9 @@
         margin-top: 0;
         padding-top: 2em;
     }
+    footer {
+        margin-bottom: 32px;
+    }
 
 .pure-g.m30
     .pure-u-1.pure-u-lg-4-5
@@ -16,3 +19,13 @@
                     %li.tree-section
                         %a{href: "{{='#'+sub[1]}}"}
                             = sub[0]
+
+.navigator
+    .navigator-left
+        - if prev
+            %a{href: "./{{=prev[1]"}
+                = "< Previous: "+prev[0]
+    .navigator-right
+        - if after
+            %a{href: "./{{=after[1]"}
+                = "Next: "after[0]+">"

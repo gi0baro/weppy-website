@@ -21,6 +21,13 @@ def get_latest_version():
     return str(latest_version)
 
 
+def is_page(version, name):
+    path = os.path.join(_docs_path, version, name+".md")
+    if os.path.exists(path):
+        return True
+    return False
+
+
 def _get_lines(version, name):
     path = os.path.join(_docs_path, version, name+".md")
     with open(path) as f:

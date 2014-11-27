@@ -2,7 +2,7 @@ from weppy import AppModule, response, abort, redirect, url, asis
 from weppy.validators import IS_SLUG
 from weppyweb import app
 from weppyweb.helpers.docs import get_latest_version, get_versions, \
-    build_tree, get_sections, get_html, _get_chapter
+    build_tree, get_sections, get_html, _get_chapter, is_page
 
 
 docs = AppModule(app, "docs", __name__, url_prefix="docs",
@@ -42,6 +42,8 @@ def page(version, p):
     if version == 'latest':
         v = get_latest_version()
         redirect(url('.page', [v, p]))
+    if not is_page(v, p):
+        abort(404)
     _sections = get_sections(version, p)
     sections = []
     for s in _sections:
@@ -49,4 +51,15 @@ def page(version, p):
     body = asis(get_html(version, p))
     title = _get_chapter(version, p)
     response.meta.title = "weppy - Docs - "+title
-    return dict(body=body, sections=sections)
+    # for navigator
+    tree = build_tree(version)
+    prev = None
+    after = None
+    for i in range(0, len(tree)):
+        if tree[i][0] == title:
+            if i > 0:
+                prev = tree[i-1]
+            if i < len(tree)-1:
+                after = tree[i+1]
+            break
+    return dict(body=body, sections=sections, prev=prev, after=after)
