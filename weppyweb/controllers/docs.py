@@ -42,7 +42,7 @@ def page(version, p):
     if version == 'latest':
         v = get_latest_version()
         redirect(url('.page', [v, p]))
-    if not is_page(v, p):
+    if not is_page(version, p):
         abort(404)
     _sections = get_sections(version, p)
     sections = []
