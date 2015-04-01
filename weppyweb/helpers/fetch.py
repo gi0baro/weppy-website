@@ -160,6 +160,7 @@ def _update_extensions():
                 status=status,
                 author_name=metadata['author']['name'],
                 author_email=metadata['author']['email'],
+                description=metadata['description'],
                 github=metadata['github'],
                 pypi=metadata['pypi'],
                 version=metadata['version'],
