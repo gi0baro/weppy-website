@@ -1,2 +1,7 @@
 weppy
 weppy-Haml
+markdown2
+redis
+rq
+rq-scheduler
+requests

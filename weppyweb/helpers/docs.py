@@ -10,7 +10,7 @@ def get_versions():
     def _get():
         versions = []
         for name in os.listdir(_docs_path):
-            if os.path.isdir(os.path.join(_docs_path, name)):
+            if name != "dev" and os.path.isdir(os.path.join(_docs_path, name)):
                 versions.append(name)
         return versions
     return cache('docs_versions', _get, None)
