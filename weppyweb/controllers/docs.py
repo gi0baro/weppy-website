@@ -1,5 +1,5 @@
 from weppy import AppModule, response, abort, redirect, url, asis
-from weppy.validators import IS_SLUG
+from weppy.validators import Slug
 from weppyweb import app
 from weppyweb.helpers.docs import get_latest_version, get_versions, \
     build_tree, get_sections, get_html, _get_chapter, is_page
@@ -29,7 +29,7 @@ def home(version):
         u = url('.page', [version, v[1]])
         sub_v = []
         for sv in v[2]:
-            slug = IS_SLUG()(sv)[0]
+            slug = Slug()(sv)[0]
             sub_v.append((sv, u+"#"+slug))
         pages.append((v[0], u, sub_v))
     #pages = [(v[0], url('.page', [version, v[1]]), v[2]) for v in tree]
@@ -47,7 +47,7 @@ def page(version, p):
     _sections = get_sections(version, p)
     sections = []
     for s in _sections:
-        sections.append((s, IS_SLUG()(s)[0]))
+        sections.append((s, Slug()(s)[0]))
     body = asis(get_html(version, p))
     title = _get_chapter(version, p)
     response.meta.title = "weppy - Docs - "+title
