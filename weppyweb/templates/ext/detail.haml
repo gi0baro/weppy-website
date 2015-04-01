@@ -1,0 +1,38 @@
+- extend 'layout.haml'
+
+:css
+    h2 {
+        margin-top: 0;
+        padding-top: 2em;
+    }
+    footer {
+        margin-bottom: 32px;
+    }
+
+.pure-g.m30
+    .pure-u-1.pure-u-lg-4-5
+        %h1
+            = extension.name+" weppy extension"
+        = body
+    .pure-u-1.pure-u-lg-1-5
+        .page-sections.m30
+            %p
+                = "coded by "+extension.author_name
+            %p
+                = "version: "+extension.version
+                %br
+                = "license: "+extension.license
+            %p
+                %a{href: 'https://pypi.python.org/pypi/{{=extension.pypi}}'}
+                    %img{src: 'https://img.shields.io/pypi/v/{{=extension.pypi}}.svg?style=flat'}
+            - if extension.website
+                %p
+                    %a{href: '{{=extension.website}}'}
+                        website
+            %p
+                %a{href: 'https://github.com/{{=extension.github}}'}
+                    github
+                %br
+                %a{href: '{{=extension.bugtracker}}'}
+                    bugtracker
+

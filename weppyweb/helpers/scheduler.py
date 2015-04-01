@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-from weppyweb import app, redis
-from .fetch import update_base
+from weppyweb import redis
+from .fetch import update_base, update_extensions
 
 
 class Scheduler(object):
@@ -28,8 +28,8 @@ class Scheduler(object):
         self.my_jobs = []
 
     def create_jobs(self):
-        # version grab
-        date = datetime.utcnow()+timedelta(seconds=60)
+        # version and docs grab
+        date = datetime.utcnow()+timedelta(seconds=15)
         job = self.scheduler.schedule(
             scheduled_time=date,
             func=update_base,
@@ -37,11 +37,18 @@ class Scheduler(object):
             repeat=None
         )
         self.my_jobs.append((job.id, date))
+        # extensions grab
+        date = datetime.utcnow()+timedelta(seconds=45)
+        job = self.scheduler.schedule(
+            scheduled_time=date,
+            func=update_extensions,
+            interval=7200,
+            repeat=None
+        )
+        self.my_jobs.append((job.id, date))
 
     def run(self):
-        jobs_ok = self.check_jobs()
-        if not jobs_ok:
-            self.delete_jobs()
-            self.create_jobs()
-        app.log.warning(self.my_jobs)
+        self.check_jobs()
+        self.delete_jobs()
+        self.create_jobs()
         self.scheduler.run()

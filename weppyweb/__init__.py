@@ -5,13 +5,13 @@ from redis import Redis
 
 ## init our app
 app = App(__name__)
-app.config.static_version = '1.1'
+app.config.static_version = '1.1.0'
 app.config.static_version_urls = True
 app.config.url_default_namespace = "main"
 app.config.redis = sdict(
     host="localhost",
     port=6379,
-    db=3
+    db=1
 )
 
 from weppy_haml import Haml

@@ -12,8 +12,8 @@ def get_versions():
         for name in os.listdir(_docs_path):
             if name != "dev" and os.path.isdir(os.path.join(_docs_path, name)):
                 versions.append(name)
-        return versions
-    return cache('docs_versions', _get, None)
+        return sorted(versions, reverse=True)
+    return cache('docs_versions', _get, 600)
 
 
 def get_latest_version():
@@ -44,7 +44,7 @@ def _get_chapter(version, name):
                 chapter = lines[i-1]
                 break
         return chapter
-    return cache('docs_'+version+'_'+name+'_chapter', _get, None)
+    return cache('docs_'+version+'_'+name+'_chapter', _get, 300)
 
 
 def get_sections(version, name):
@@ -55,7 +55,7 @@ def get_sections(version, name):
             if lines[i].startswith("---"):
                 sections.append(lines[i-1])
         return sections
-    return cache('docs_'+version+'_'+name+'_sections', _get, None)
+    return cache('docs_'+version+'_'+name+'_sections', _get, 300)
 
 
 def build_tree(version):
@@ -72,7 +72,7 @@ def build_tree(version):
     folder = os.path.join(_docs_path, version)
     if not os.path.exists(folder):
         return None
-    return cache('docs_'+version+'_tree', _get, None)
+    return cache('docs_'+version+'_tree', _get, 300)
 
 
 def get_text(version, name):
@@ -92,4 +92,4 @@ def get_html(version, name):
     text = get_text(version, name)
     if text is None:
         return text
-    return cache('docs_'+version+'_'+name+'_html', _parse, None)
+    return cache('docs_'+version+'_'+name+'_html', _parse, 300)

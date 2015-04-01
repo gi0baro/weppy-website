@@ -17,6 +17,7 @@ class Extension(Model):
     fields = [
         Field("name"),
         Field("slug"),
+        Field("description"),
         Field("author_name"),
         Field("author_email"),
         Field("github"),
@@ -25,6 +26,8 @@ class Extension(Model):
         Field("website"),
         Field("bugtracker"),
         Field("license"),
+        Field("status"),
+        Field("data", "text"),
         Field("updated", "datetime", default=lambda: datetime.utcnow())
     ]
 

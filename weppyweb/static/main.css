@@ -226,3 +226,8 @@ th {
     margin-right: 18px;
     font-size: 0.85em;
 }
+
+.ext-desc {
+    margin-left: 15px;
+    color: #777;
+}

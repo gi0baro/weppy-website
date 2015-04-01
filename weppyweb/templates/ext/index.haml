@@ -1,0 +1,15 @@
+- extend 'layout.haml'
+
+.pure-g.m30
+    .pure-u-1.pure-u-lg-3-5
+        %h1 Extensions registry
+        %p
+            Here you can find a list of packages that extends weppy. The extensions listed here are officially approved, and are updated on regular basis.
+        .m30
+            - for extension in extensions
+                %h3.ext-title
+                    %a{href: '{{=url(".detail", extension.slug)}}'}
+                        = extension.name
+                %p.ext-desc
+                    = extension.description
+                %hr

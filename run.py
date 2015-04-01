@@ -1,3 +1,3 @@
 from weppyweb import app
 
-app.run()
+app.run("0.0.0.0", 8000)

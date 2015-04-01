@@ -2,6 +2,8 @@ import requests
 import os
 import shutil
 from subprocess import Popen, PIPE
+from yaml import load as ymlload
+from weppy.validators import Slug
 from weppyweb import app, redis, db
 
 
@@ -18,7 +20,7 @@ class GitGetter(object):
 
     @property
     def folder(self):
-        return os.path.join(self.repo, self.storage)
+        return os.path.join(self.tfolder, self.storage)
 
     def _clone(self):
         os.chdir(self.tfolder)
@@ -32,6 +34,7 @@ class GitGetter(object):
         Popen(['git', 'pull']).wait()
 
     def tags(self):
+        os.chdir(self.folder)
         return set(
             Popen(['git', 'tag'], stdout=PIPE).communicate()[0].splitlines())
 
@@ -87,7 +90,7 @@ def _update_docs(tags):
         if not versions.get(sub):
             versions[sub] = tag[1:]
         else:
-            if float(tag[3:]) > float(versions[sub]):
+            if float(tag[3:]) > float(versions[sub][2:]):
                 versions[sub] = tag[1:]
     db._adapter.reconnect()
     upd_list = []
@@ -106,12 +109,14 @@ def _update_docs(tags):
         if not os.path.exists(docs_path):
             os.mkdir(docs_path)
         os.chdir(os.path.join(app.root_path, "tmp", "weppysrc"))
-        Popen(["git", "checkout", v]).wait()
+        Popen(["git", "checkout", "v"+v]).wait()
         src_path = os.path.join(app.root_path, "tmp", "weppysrc", "docs")
         for name in os.listdir(src_path):
             shutil.copy2(os.path.join(src_path, name), docs_path)
     #: update 'dev' docs
     docs_path = os.path.join(app.root_path, "docs", "dev")
+    if not os.path.exists(docs_path):
+        os.mkdir(docs_path)
     os.chdir(os.path.join(app.root_path, "tmp", "weppysrc"))
     Popen(["git", "checkout", "master"]).wait()
     src_path = os.path.join(app.root_path, "tmp", "weppysrc", "docs")
@@ -123,8 +128,49 @@ def update_base():
     getter = GitGetter("https://github.com/gi0baro/weppy.git", "weppysrc")
     getter.get()
     _update_version()
-    _update_docs(getter.tags)
+    _update_docs(getter.tags())
+
+
+def _update_extensions():
+    Popen(["git", "checkout", "stable"]).wait()
+    db._adapter.reconnect()
+    src_path = os.path.join(app.root_path, "tmp", "registry", "extensions")
+    for name in os.listdir(src_path):
+        statusfile = open(os.path.join(src_path, name, 'status.yml'), 'r')
+        statusdata = ymlload(statusfile)
+        statusfile.close()
+        if statusdata['approved']:
+            status = statusdata['status']
+            metafile = open(os.path.join(src_path, name, 'data.yml'), 'r')
+            metadata = ymlload(metafile)
+            metafile.close()
+            datafile = open(os.path.join(src_path, name, 'page.md'), 'r')
+            extdata = datafile.read()
+            datafile.close()
+            row = db.Extension(name=metadata['name'])
+            if not row:
+                slug = Slug()(metadata['name'])[0]
+                rid = db.Extension.insert(
+                    name=metadata['name'],
+                    slug=slug
+                )
+                row = db.Extension(id=rid)
+            row.update_record(
+                status=status,
+                author_name=metadata['author']['name'],
+                author_email=metadata['author']['email'],
+                github=metadata['github'],
+                pypi=metadata['pypi'],
+                version=metadata['version'],
+                website=metadata.get('website'),
+                bugtracker=metadata['bugtracker'],
+                license=metadata['license'],
+                data=extdata
+            )
+    db.commit()
 
 
 def update_extensions():
-    pass
+    getter = GitGetter("https://github.com/gi0baro/weppyreg.git", "registry")
+    getter.get()
+    _update_extensions()

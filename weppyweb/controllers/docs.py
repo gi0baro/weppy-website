@@ -34,7 +34,7 @@ def home(version):
         pages.append((v[0], u, sub_v))
     #pages = [(v[0], url('.page', [version, v[1]]), v[2]) for v in tree]
     response.meta.title = "weppy - Docs"
-    return dict(tree=pages, version=version, versions=get_versions())
+    return dict(tree=pages, version=version, versions=["dev"]+get_versions())
 
 
 @docs.expose("/<str:version>/<str:p>")
