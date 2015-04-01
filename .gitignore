@@ -8,11 +8,11 @@
 *.sublime-workspace
 weppyweb/cache/*
 weppyweb/databases/*
-weppyweb/errors/*
 weppyweb/sessions/*
 weppyweb/uploads/*
 weppyweb/config/*.yml
-weppyweb/private/*
 weppyweb/languages/*
 weppyweb/logs/*.log
+weppyweb/docs/*
+weppyweb/tmp/*
 *.haml.html
