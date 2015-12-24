@@ -1,5 +1,5 @@
-weppy
-weppy-Haml
+weppy>=0.5.4
+weppy-Haml>=0.3
 markdown2
 redis
 rq
