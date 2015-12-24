@@ -3,7 +3,7 @@ import os
 import shutil
 from subprocess import Popen, PIPE
 from yaml import load as ymlload
-from weppy.validators import Slug
+from weppy.validators.process import Urlify
 from weppyweb import app, redis, db
 
 
@@ -70,9 +70,9 @@ class Getter(object):
 
 
 def _update_version():
-    f = open(os.path.join(app.root_path, "tmp", "weppysrc", "CHANGES"), "r")
-    lines = f.readlines()
-    f.close()
+    changelog = os.path.join(app.root_path, "tmp", "weppysrc", "CHANGES")
+    with open(changelog, "r") as f:
+        lines = f.readlines()
     for i in range(0, len(lines)):
         if lines[i].startswith("---"):
             if lines[i-1].startswith("Version"):
@@ -112,7 +112,12 @@ def _update_docs(tags):
         Popen(["git", "checkout", "v"+v]).wait()
         src_path = os.path.join(app.root_path, "tmp", "weppysrc", "docs")
         for name in os.listdir(src_path):
-            shutil.copy2(os.path.join(src_path, name), docs_path)
+            if os.path.isdir(os.path.join(src_path, name)):
+                shutil.copytree(
+                    os.path.join(src_path, name),
+                    os.path.join(docs_path, name))
+            else:
+                shutil.copy2(os.path.join(src_path, name), docs_path)
     #: update 'dev' docs
     docs_path = os.path.join(app.root_path, "docs", "dev")
     if not os.path.exists(docs_path):
@@ -121,7 +126,12 @@ def _update_docs(tags):
     Popen(["git", "checkout", "master"]).wait()
     src_path = os.path.join(app.root_path, "tmp", "weppysrc", "docs")
     for name in os.listdir(src_path):
-        shutil.copy2(os.path.join(src_path, name), docs_path)
+        if os.path.isdir(os.path.join(src_path, name)):
+            shutil.copytree(
+                os.path.join(src_path, name),
+                os.path.join(docs_path, name))
+        else:
+            shutil.copy2(os.path.join(src_path, name), docs_path)
 
 
 def update_base():
@@ -150,7 +160,7 @@ def _update_extensions():
             datafile.close()
             row = db.Extension(name=metadata['name'])
             if not row:
-                slug = Slug()(metadata['name'])[0]
+                slug = Urlify()(metadata['name'])[0]
                 rid = db.Extension.insert(
                     name=metadata['name'],
                     slug=slug

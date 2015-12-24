@@ -1,8 +1,8 @@
 from weppy import AppModule, response, abort, redirect, url, asis
-from weppy.validators import Slug
+from weppy.validators.process import Urlify
 from weppyweb import app
 from weppyweb.helpers.docs import get_latest_version, get_versions, \
-    build_tree, get_sections, get_html, _get_chapter, is_page
+    build_tree, get_sections, get_html, _get_chapter, is_page, get_navigation
 
 
 docs = AppModule(app, "docs", __name__, url_prefix="docs",
@@ -28,38 +28,42 @@ def home(version):
     for v in tree:
         u = url('.page', [version, v[1]])
         sub_v = []
-        for sv in v[2]:
-            slug = Slug()(sv)[0]
-            sub_v.append((sv, u+"#"+slug))
+        if v[2]:
+            for sv in v[2]:
+                sub_v.append((sv[0], url('.page', [version, v[1], sv[1]])))
+        else:
+            for sv in v[3]:
+                slug = Urlify()(sv)[0]
+                sub_v.append((sv, u+"#"+slug))
         pages.append((v[0], u, sub_v))
     #pages = [(v[0], url('.page', [version, v[1]]), v[2]) for v in tree]
     response.meta.title = "weppy - Docs"
     return dict(tree=pages, version=version, versions=["dev"]+get_versions())
 
 
-@docs.expose("/<str:version>/<str:p>")
-def page(version, p):
+@docs.expose("/<str:version>/<str:p>(/<str:subp>)?")
+def page(version, p, subp):
     if version == 'latest':
         v = get_latest_version()
-        redirect(url('.page', [v, p]))
-    if not is_page(version, p):
+        pargs = [v, p]
+        if subp:
+            pargs.append(subp)
+        redirect(url('.page', pargs))
+    if subp:
+        requested_page = subp
+        parent = p
+    else:
+        requested_page = p
+        parent = None
+    if not is_page(version, requested_page, parent):
         abort(404)
-    _sections = get_sections(version, p)
+    _sections = get_sections(version, requested_page, parent)
     sections = []
     for s in _sections:
-        sections.append((s, Slug()(s)[0]))
-    body = asis(get_html(version, p))
-    title = _get_chapter(version, p)
+        sections.append((s, Urlify()(s)[0]))
+    body = asis(get_html(version, requested_page, parent))
+    title = _get_chapter(version, requested_page, parent)
     response.meta.title = "weppy - Docs - "+title
     # for navigator
-    tree = build_tree(version)
-    prev = None
-    after = None
-    for i in range(0, len(tree)):
-        if tree[i][0] == title:
-            if i > 0:
-                prev = tree[i-1]
-            if i < len(tree)-1:
-                after = tree[i+1]
-            break
+    prev, after = get_navigation(version, requested_page, parent)
     return dict(body=body, sections=sections, prev=prev, after=after)

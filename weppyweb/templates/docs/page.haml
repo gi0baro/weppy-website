@@ -23,9 +23,11 @@
 .navigator
     .navigator-left
         - if prev
-            %a{href: "./{{=prev[1]}}"}
+            - u = url('.page', [prev[3], prev[1]]) if not prev[2] else url('.page', [prev[3], prev[2], prev[1]])
+            %a{href: "{{=u}}"}
                 = "< "+prev[0]
     .navigator-right
         - if after
-            %a{href: "./{{=after[1]}}"}
+            - u = url('.page', [after[3], after[1]]) if not after[2] else url('.page', [after[3], after[2], after[1]])
+            %a{href: "{{=u}}"}
                 = after[0]+" >"
