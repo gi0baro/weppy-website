@@ -129,6 +129,8 @@ def _navigation_tree_pos(tree, pname):
 
 
 def _navigation_data(version, tree_obj, parent=None):
+    if tree_obj is None:
+        return tree_obj
     return tree_obj[0], tree_obj[1], parent, version
 
 
