@@ -127,6 +127,8 @@ def _update_docs(tags):
     src_path = os.path.join(app.root_path, "tmp", "weppysrc", "docs")
     for name in os.listdir(src_path):
         if os.path.isdir(os.path.join(src_path, name)):
+            if os.path.exists(os.path.join(docs_path, name)):
+                shutil.rmtree(os.path.join(docs_path, name))
             shutil.copytree(
                 os.path.join(src_path, name),
                 os.path.join(docs_path, name))
