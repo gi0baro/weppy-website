@@ -58,7 +58,7 @@ def get_sections(version, name, parent=None):
         sections = []
         for i in range(0, len(lines)):
             if lines[i].startswith("---"):
-                sections.append(lines[i-1])
+                sections.append(lines[i-1].replace("\\", ""))
         return sections
     cname = parent+"."+name if parent else name
     return cache('docs_'+version+'_'+cname+'_sections', _get, 300)
