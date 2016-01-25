@@ -20,7 +20,7 @@ def home(version):
         v = get_latest_version()
         redirect(url('.home', v))
     if version not in get_versions()+["dev"]:
-        redirect(url('.page', ['latest', version]))
+        redirect(url('.page', 'latest'))
     tree = build_tree(version)
     if not tree:
         abort(404)
