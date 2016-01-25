@@ -33,7 +33,7 @@ def home(version):
                 sub_v.append((sv[0], url('.page', [version, v[1], sv[1]])))
         else:
             for sv in v[3]:
-                slug = Urlify()(sv)[0]
+                slug = Urlify(keep_underscores=True)(sv)[0]
                 sub_v.append((sv, u+"#"+slug))
         pages.append((v[0], u, sub_v))
     #pages = [(v[0], url('.page', [version, v[1]]), v[2]) for v in tree]
@@ -60,7 +60,7 @@ def page(version, p, subp):
     _sections = get_sections(version, requested_page, parent)
     sections = []
     for s in _sections:
-        sections.append((s, Urlify()(s)[0]))
+        sections.append((s, Urlify(keep_underscores=True)(s)[0]))
     body = asis(get_html(version, requested_page, parent))
     title = _get_chapter(version, requested_page, parent)
     response.meta.title = "weppy - Docs - "+title
