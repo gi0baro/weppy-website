@@ -9,12 +9,14 @@
         - include_helpers
 
         %link{href: "http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic", rel: "stylesheet", type:"text/css"}
-        %link{href: "http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700", rel: "stylesheet", type:"text/css"}
+        %link{href: "http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700", rel: "stylesheet", type: "text/css"}
+        %link{href: "http://fonts.googleapis.com/css?family=Raleway:400,300,600", rel: "stylesheet", type: "text/css"}
         - include_static 'pure-min.css'
         - include_static 'grids-responsive-min.css'
         - include_static 'main.css'
         - include_static 'highlight.css'
         - include_static 'highlight.pack.js'
+        - include_static 'chart.min.js'
 
         - block head
         - end
@@ -38,7 +40,9 @@
             - end
 
         %footer
-            %p © 2016 by Giovanni Barillari
+            %p
+                &copy;
+                2016 by Giovanni Barillari
 
         :javascript
             hljs.initHighlightingOnLoad();

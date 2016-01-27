@@ -1,0 +1,64 @@
+:javascript
+    var chart_data = {
+        labels: ["weppy", "flask", "django"],
+        datasets: [
+            {
+                label: "req/s",
+                backgroundColor: "rgba(117,189,201,0.5)",
+                data: [10853, 6831, 4330]
+            }
+        ]
+    }
+    $(document).ready(function() {
+        var w = $('#perf_chart').parent().width();
+        $('#perf_chart').attr('width', w);
+        var ctx = document.getElementById('perf_chart').getContext('2d');
+        myBar = new Chart(ctx, {
+            type: 'bar',
+            data: chart_data,
+            options: {
+                responsive: false,
+                legend: {
+                    position: 'top',
+                    labels: {fontColor: "#eee"}
+                },
+                title: {
+                    display: true,
+                    text: 'JSON object serialization',
+                    fontColor: "#eee"
+                },
+                scales: {
+                    xAxes: [
+                        {
+                            gridLines: {color: "rgba(255, 255, 255, 0)"},
+                            ticks: {fontColor: "#eee"}
+                        }
+                    ],
+                    yAxes: [
+                        {
+                            gridLines: {color: "rgba(255, 255, 255, 0)"},
+                            ticks: {fontColor: "#eee"}
+                        }
+                    ]
+                }
+            }
+        });
+    });
+
+.pure-g{style: "background: #333; color: #fff"}
+    .pure-u-1
+        .pure-g.m30
+            .pure-u-1.pure-u-md-1-2
+                .pure-g.m4p
+                    .pure-u-1
+                        %h2.title Performance does matter
+                    .pure-u-1.home-p
+                        weppy is designed to be scalable and to avoid wasting response time on your applications.
+                        %br
+                        %br
+                        %a.big{href: "http://klen.github.io/py-frameworks-bench/", target: "_blank"}
+                            Benchmarks
+                        say your application will process requests faster than other popular web frameworks.
+
+            .pure-u-1.pure-u-md-1-2
+                %canvas#perf_chart{height: "300"}
