@@ -5,7 +5,7 @@ from redis import Redis
 
 ## init our app
 app = App(__name__)
-app.config.static_version = '1.1.0'
+app.config.static_version = '1.2.0'
 app.config.static_version_urls = True
 app.config.url_default_namespace = "main"
 app.config.redis = sdict(
