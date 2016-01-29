@@ -9,11 +9,7 @@ app = App(__name__)
 app.config.static_version = '1.2.0'
 app.config.static_version_urls = True
 app.config.url_default_namespace = "main"
-app.config.redis = sdict(
-    host="192.168.99.100",
-    port=6379,
-    db=1
-)
+app.config_from_yaml('redis.yml', 'redis')
 app.config_from_yaml('sentry.yml', 'Sentry')
 
 from weppy_haml import Haml
