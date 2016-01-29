@@ -1,5 +1,6 @@
 import os
 from weppy import App, Cache, DAL, sdict
+from weppy_sentry import Sentry
 from redis import Redis
 
 
@@ -9,10 +10,11 @@ app.config.static_version = '1.2.0'
 app.config.static_version_urls = True
 app.config.url_default_namespace = "main"
 app.config.redis = sdict(
-    host="localhost",
+    host="192.168.99.100",
     port=6379,
     db=1
 )
+app.config_from_yaml('sentry.yml', 'Sentry')
 
 from weppy_haml import Haml
 app.config.Haml.set_as_default = True
@@ -32,6 +34,8 @@ app.expose.common_handlers = [db.handler]
 from controllers import main, docs, extensions
 
 import commands
+
+app.use_extension(Sentry)
 
 #: ensure 'docs' folder presence
 if not os.path.exists(os.path.join(app.root_path, "docs")):
