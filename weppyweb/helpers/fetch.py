@@ -146,6 +146,7 @@ def update_base():
 def _update_extensions():
     os.chdir(os.path.join(app.root_path, "tmp", "registry"))
     Popen(["git", "checkout", "stable"]).wait()
+    Popen(['git', 'pull']).wait()
     db._adapter.reconnect()
     src_path = os.path.join(app.root_path, "tmp", "registry", "extensions")
     for name in os.listdir(src_path):
