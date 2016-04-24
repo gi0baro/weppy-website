@@ -12,6 +12,10 @@
                         %pre
                             %code{language: 'python'}
                                 :plain
+                                    from weppy import request
+                                    from weppy.tools import service
+                                    from myapp import app, Todo
+
                                     @app.route()
                                     @service.json
                                     def todos():

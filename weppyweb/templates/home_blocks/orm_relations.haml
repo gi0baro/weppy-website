@@ -38,6 +38,7 @@
                                         :plain
                                             class User(Model):
                                                 name = Field('string')
+                                                email = Field('string')
                                                 has_many('posts')
 
                                                 validation = {
