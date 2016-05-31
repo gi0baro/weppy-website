@@ -9,12 +9,12 @@ docs = AppModule(app, "docs", __name__, url_prefix="docs",
                  template_folder="docs")
 
 
-@docs.expose("/")
+@docs.route("/")
 def index():
     redirect(url('.home', 'latest'))
 
 
-@docs.expose("/<str:version>")
+@docs.route("/<str:version>")
 def home(version):
     if version == 'latest':
         v = get_latest_version()
@@ -41,7 +41,7 @@ def home(version):
     return dict(tree=pages, version=version, versions=["dev"]+get_versions())
 
 
-@docs.expose("/<str:version>/<str:p>(/<str:subp>)?")
+@docs.route("/<str:version>/<str:p>(/<str:subp>)?")
 def page(version, p, subp):
     if version == 'latest':
         v = get_latest_version()

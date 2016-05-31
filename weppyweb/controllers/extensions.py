@@ -7,7 +7,7 @@ ext = AppModule(app, "ext", __name__, url_prefix="extensions",
                 template_folder="ext")
 
 
-@ext.expose("/")
+@ext.route("/")
 def index():
     extensions = db(db.Extension.id > 0).select(orderby=~db.Extension.updated)
     return dict(extensions=extensions)
@@ -20,7 +20,7 @@ def build_html(name, md):
     return cache('ext_'+name+'_html', _parse, 300)
 
 
-@ext.expose("/<str:ename>")
+@ext.route("/<str:ename>")
 def detail(ename):
     extension = db(db.Extension.slug == ename).select().first()
     if not extension:

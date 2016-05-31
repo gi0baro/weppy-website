@@ -11,7 +11,7 @@ def error_500():
     return app.render_template("500.haml")
 
 
-@app.expose("/")
+@app.route("/")
 def index():
     version = redis.get("weppy:last_version") or "0.1 Altair"
     return dict(version=version, tcode=template_example)

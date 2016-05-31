@@ -25,7 +25,7 @@ redis = Redis(host=app.config.redis.host, port=app.config.redis.port,
 
 cache = Cache()
 
-app.expose.common_handlers = [db.handler]
+app.common_handlers = [db.handler]
 
 from controllers import main, docs, extensions
 
