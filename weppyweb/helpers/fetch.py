@@ -79,14 +79,14 @@ def _update_version():
                 n = lines[i-1].split("Version ")[1]
                 codename = lines[i+2].split(", codename ")[1]
                 break
-    redis.set("weppy:last_version", n+" "+codename)
+    redis.set("weppy:last_version", n + " " + codename)
 
 
 def _update_docs(tags):
     versions = {}
     for tag in tags:
         split = tag[1:].split(".")
-        sub = split[0]+"."+split[1]
+        sub = split[0] + "." + split[1]
         if not versions.get(sub):
             versions[sub] = tag[1:]
         else:
@@ -109,10 +109,12 @@ def _update_docs(tags):
         if not os.path.exists(docs_path):
             os.mkdir(docs_path)
         os.chdir(os.path.join(app.root_path, "tmp", "weppysrc"))
-        Popen(["git", "checkout", "v"+v]).wait()
+        Popen(["git", "checkout", "v" + v]).wait()
         src_path = os.path.join(app.root_path, "tmp", "weppysrc", "docs")
         for name in os.listdir(src_path):
             if os.path.isdir(os.path.join(src_path, name)):
+                if os.path.exists(os.path.join(docs_path, name)):
+                    shutil.rmtree(os.path.join(docs_path, name))
                 shutil.copytree(
                     os.path.join(src_path, name),
                     os.path.join(docs_path, name))
