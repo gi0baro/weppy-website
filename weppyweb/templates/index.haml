@@ -33,87 +33,88 @@
 - include 'home_blocks/templating.haml'
 - include 'home_blocks/performance.haml'
 .pure-g.m30
-    .pure-u-1.pure-u-md-1-2
-        .pure-g.m4p
-            .pure-u-1
-                %h2.title
-                    Ready to go?
-            .pure-u-1.home-p{style: "font-size: 1.06em;"}
-                The easiest way to install weppy is from PyPI, using pip:
-                %br
-                %br
-                %code{style: "font-size: 18px;"}
-                    $ pip install weppy
-                %br
-                %br
-                Then you may want to:
-                %ul
-                    %li
-                        Read the
-                        %a{href: "{{=url('docs.home', 'latest')}}"}
-                            documentation
-                    %li
-                        %a{href: "https://github.com/gi0baro/weppy"}
-                            Star and fork
-                        the project on github
-                    %li
-                        Discuss on the
-                        %a{href: "https://groups.google.com/forum/#!forum/weppy-talk"}
-                            weppy users group
-                    %li
-                        Add
-                        %a{href: "https://github.com/gi0baro/weppy/issues"}
-                            issues and feature requests
-                    %li
-                        Make your own
-                        %a{href: '{{=url("ext.index")}}'}
-                            extensions
-    .pure-u-1.pure-u-md-1-2
-        .pure-g.m4p
-            .pure-u-1
-                %h2.title Batteries included
-            .pure-u-1.home-p
-                %ul
-                    %li
-                        Simple
-                        %a{href: "{{=starturl+'#expose-and-routing'}}"}
-                            routing system
-                    %li
-                        Beautiful
-                        %a{href: "{{=url('docs.page', ['latest', 'dal'])}}"}
-                            ORM
-                        with integrated
-                        %a{href: "{{=url('docs.page', ['latest', 'dal', 'migrations'])}}"}
-                            migrations
-                    %li
-                        Elegant
-                        %a{href: "{{=url('docs.page', ['latest', 'validations'])}}"}
-                            validation
-                        system
-                    %li
-                        Secure
-                        %a{href: "{{=url('docs.page', ['latest', 'auth'])}}"}
-                            authentication system
-                    %li
-                        Handy
-                        %a{href: "{{=starturl+'#creating-forms'}}"}
-                            forms generation
-                    %li
-                        Straight
-                        %a{href: "{{=starturl+'#languages-and-translation'}}"}
-                            multi-language system
-                    %li
-                        Powerful and friendly
-                        %a{href: "{{=starturl+'#rendering-the-output'}}"}
-                            templating system
-                    %li
-                        %a{href: "{{=url('ext.detail', 'assets')}}"}
-                            Assets pipeline
-                        management (extension)
-                    %li
-                        %a{href: "{{=url('ext.detail', 'haml')}}"}
-                            Haml
-                        templating (extension)
+    .maxw
+        .pure-u-1.pure-u-md-1-2
+            .pure-g.m4p
+                .pure-u-1
+                    %h2.title
+                        Ready to go?
+                .pure-u-1.home-p{style: "font-size: 1.06em;"}
+                    The easiest way to install weppy is from PyPI, using pip:
+                    %br
+                    %br
+                    %code{style: "font-size: 18px;"}
+                        $ pip install weppy
+                    %br
+                    %br
+                    Then you may want to:
+                    %ul
+                        %li
+                            Read the
+                            %a{href: "{{=url('docs.home', 'latest')}}"}
+                                documentation
+                        %li
+                            %a{href: "https://github.com/gi0baro/weppy"}
+                                Star and fork
+                            the project on github
+                        %li
+                            Discuss on the
+                            %a{href: "https://groups.google.com/forum/#!forum/weppy-talk"}
+                                weppy users group
+                        %li
+                            Add
+                            %a{href: "https://github.com/gi0baro/weppy/issues"}
+                                issues and feature requests
+                        %li
+                            Make your own
+                            %a{href: '{{=url("ext.index")}}'}
+                                extensions
+        .pure-u-1.pure-u-md-1-2
+            .pure-g.m4p
+                .pure-u-1
+                    %h2.title Batteries included
+                .pure-u-1.home-p
+                    %ul
+                        %li
+                            Simple
+                            %a{href: "{{=starturl+'#expose-and-routing'}}"}
+                                routing system
+                        %li
+                            Beautiful
+                            %a{href: "{{=url('docs.page', ['latest', 'dal'])}}"}
+                                ORM
+                            with integrated
+                            %a{href: "{{=url('docs.page', ['latest', 'dal', 'migrations'])}}"}
+                                migrations
+                        %li
+                            Elegant
+                            %a{href: "{{=url('docs.page', ['latest', 'validations'])}}"}
+                                validation
+                            system
+                        %li
+                            Secure
+                            %a{href: "{{=url('docs.page', ['latest', 'auth'])}}"}
+                                authentication system
+                        %li
+                            Handy
+                            %a{href: "{{=starturl+'#creating-forms'}}"}
+                                forms generation
+                        %li
+                            Straight
+                            %a{href: "{{=starturl+'#languages-and-translation'}}"}
+                                multi-language system
+                        %li
+                            Powerful and friendly
+                            %a{href: "{{=starturl+'#rendering-the-output'}}"}
+                                templating system
+                        %li
+                            %a{href: "{{=url('ext.detail', 'assets')}}"}
+                                Assets pipeline
+                            management (extension)
+                        %li
+                            %a{href: "{{=url('ext.detail', 'haml')}}"}
+                                Haml
+                            templating (extension)
 .pure-g.m20
     .pure-u-1.pure-u-md-1-4
     .pure-u-1.pure-u-md-1-2.center

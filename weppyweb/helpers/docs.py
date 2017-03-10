@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from yaml import load as ymlload
 from markdown2 import markdown
@@ -7,7 +9,7 @@ _docs_path = os.path.join(app.root_path, 'docs')
 
 
 def _build_filepath(version, name, parent=None):
-    args = [_docs_path, version, name+".md"]
+    args = [_docs_path, version, name + ".md"]
     if parent:
         args.insert(2, parent)
     return os.path.join(*args)
@@ -45,11 +47,11 @@ def _get_chapter(version, name, parent=None):
         chapter = name
         for i in range(0, len(lines)):
             if lines[i].startswith("==="):
-                chapter = lines[i-1]
+                chapter = lines[i - 1]
                 break
         return chapter
-    cname = parent+"."+name if parent else name
-    return cache('docs_'+version+'_'+cname+'_chapter', _get, 300)
+    cname = parent + "." + name if parent else name
+    return cache('docs_' + version + '_' + cname + '_chapter', _get, 300)
 
 
 def get_sections(version, name, parent=None):
@@ -58,10 +60,10 @@ def get_sections(version, name, parent=None):
         sections = []
         for i in range(0, len(lines)):
             if lines[i].startswith("---"):
-                sections.append(lines[i-1].replace("\\", ""))
+                sections.append(lines[i - 1].replace("\\", ""))
         return sections
-    cname = parent+"."+name if parent else name
-    return cache('docs_'+version+'_'+cname+'_sections', _get, 300)
+    cname = parent + "." + name if parent else name
+    return cache('docs_' + version + '_' + cname + '_sections', _get, 300)
 
 
 def _get_subpages(version, parent, pages):
@@ -72,7 +74,7 @@ def _get_subpages(version, parent, pages):
             sections = get_sections(version, page, parent)
             rv.append((title, page, [], sections))
         return rv
-    return cache('docs_'+version+'_'+parent+'_subpages', _get, 300)
+    return cache('docs_' + version + '_' + parent + '_subpages', _get, 300)
 
 
 def build_tree(version):
@@ -99,7 +101,7 @@ def build_tree(version):
     folder = os.path.join(_docs_path, version)
     if not os.path.exists(folder):
         return None
-    return cache('docs_'+version+'_tree', _get, 300)
+    return cache('docs_' + version + '_tree', _get, 300)
 
 
 def get_text(version, name, parent=None):
@@ -116,7 +118,7 @@ def get_html(version, name, parent=None):
     text = get_text(version, name, parent)
     if text is None:
         return text
-    return cache('docs_'+version+'_'+name+'_html', _parse, 300)
+    return cache('docs_' + version + '_' + name + '_html', _parse, 300)
 
 
 def _navigation_tree_pos(tree, pname):
@@ -138,9 +140,9 @@ def _tree_nav(version, tree, page, subtree=True):
     prev, after = None, None
     index = _navigation_tree_pos(tree, page)
     if index > 0:
-        prev = tree[index-1]
-    if index < len(tree)-1:
-        after = tree[index+1]
+        prev = tree[index - 1]
+    if index < len(tree) - 1:
+        after = tree[index + 1]
     current_parent = None
     if subtree and tree[index][2]:
         after = tree[index][2][0]
@@ -160,11 +162,11 @@ def get_navigation(version, page, parent=None):
         subtree = tree[pindex]
         index = _navigation_tree_pos(subtree[2], page)
         if index > 0:
-            prev = _navigation_data(version, subtree[2][index-1], parent)
+            prev = _navigation_data(version, subtree[2][index - 1], parent)
         else:
             prev = _navigation_data(version, tree[pindex])
-        if index < len(subtree[2])-1:
-            after = _navigation_data(version, subtree[2][index+1], parent)
+        if index < len(subtree[2]) - 1:
+            after = _navigation_data(version, subtree[2][index + 1], parent)
         else:
             after = _tree_nav(version, tree, parent, False)[1]
     return prev, after

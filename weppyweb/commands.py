@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from rq import Queue, Connection, Worker
 from weppyweb import app, redis
 from weppyweb.helpers.scheduler import Scheduler

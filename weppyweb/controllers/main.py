@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from weppyweb import app, redis
 
 
@@ -19,6 +21,7 @@ def index():
 
 template_example = """
 {{extend 'layout.html'}}
+
 <div class="post-list">
 {{for post in posts:}}
     <div class="post">

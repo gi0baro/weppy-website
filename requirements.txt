@@ -1,6 +1,6 @@
-weppy>=0.6
+weppy>=1.0
 weppy-Haml>=0.3
-weppy-Sentry
+weppy-Sentry>=0.4
 markdown2
 redis
 rq

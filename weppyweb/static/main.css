@@ -112,6 +112,7 @@ code, pre {
     color: #000;
     background-color: rgba(0,0,0,0.04);
     border-radius: 4px;
+    margin: 0;
 }
 
 table caption+thead tr:first-child th, table caption+thead tr:first-child td, table colgroup+thead tr:first-child th, table colgroup+thead tr:first-child td, table thead:first-child tr:first-child th, table thead:first-child tr:first-child td {
@@ -159,6 +160,20 @@ th {
 
 .m4p {
     margin: 4%;
+}
+
+.mr {
+    margin-right: 8%;
+}
+
+.ml {
+    margin-left: 8%;
+}
+
+.maxw {
+    max-width: 94%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .logo {
@@ -305,6 +320,7 @@ h2.title {
     font-family: "Open Sans", sans-serif;
     font-size: 1em;
     font-weight: 300;
+    margin-top: 0.6em;
 }
 
 .sep {

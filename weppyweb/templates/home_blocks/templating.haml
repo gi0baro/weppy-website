@@ -1,39 +1,40 @@
 .pure-g{style: "background: #f7f7f7"}
     .pure-u-1
         .pure-g.m30
-            .pure-u-1.pure-u-md-1-2
-                .pure-g.m4p
-                    .pure-u-1
-                        .title-small
-                            A clean templating engine
-                        %h2.title
-                            Forget about templating syntax.
+            .maxw
+                .pure-u-1.pure-u-md-1-2
+                    .pure-g.m4p
+                        .pure-u-1
+                            .title-small
+                                A clean templating engine
+                            %h2.title
+                                Forget about templating syntax.
+                                %br
+                                Use Python.
+                        .pure-u-1.home-p
+                            Unlike many frameworks, weppy won't propose you a new templating language, with a
+                            different syntax and logic: you shouldn't lose time for that.
                             %br
-                            Use Python.
-                    .pure-u-1.home-p
-                        Unlike many frameworks, weppy won't propose you a new templating language, with a
-                        different syntax and logic: you shouldn't lose time for that.
-                        %br
-                        %br
-                        The
-                        %a.big{href: "{{=url('docs.page', ['latest', 'templates'])}}"}
-                            templating engine
-                        shipped with weppy is indeed just
-                        pure python code embedded in your templates,
-                        with some facilities added to the game.
-                        %br
-                        %br
-                        Use the same language for both the back-end logic and the front-end one.
-            .pure-u-1.pure-u-md-1-2
-                .pure-g.m4p
-                    .pure-u-1
-                        .browser-window
-                            .top-bar
-                                .circles
-                                    .circle
-                                    .circle
-                                    .circle
-                            .window-content
-                                %pre
-                                    %code{language: 'html', style: 'margin-top: -40px;'}
-                                        = tcode
+                            %br
+                            The
+                            %a.big{href: "{{=url('docs.page', ['latest', 'templates'])}}"}
+                                templating engine
+                            shipped with weppy is indeed just
+                            pure python code embedded in your templates,
+                            with some facilities added to the game.
+                            %br
+                            %br
+                            Use the same language for both the back-end logic and the front-end one.
+                .pure-u-1.pure-u-md-1-2
+                    .pure-g.m4p
+                        .pure-u-1
+                            .browser-window
+                                .top-bar
+                                    .circles
+                                        .circle
+                                        .circle
+                                        .circle
+                                .window-content
+                                    %pre
+                                        %code{language: 'html', style: 'margin-top: -40px;'}
+                                            = tcode

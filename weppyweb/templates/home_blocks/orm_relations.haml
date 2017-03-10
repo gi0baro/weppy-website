@@ -1,54 +1,57 @@
 .pure-g{style: "background: #f7f7f7"}
     .pure-u-1
         .pure-g.m30
-            .pure-u-1.pure-u-md-1-2
-                .pure-g.m4p
-                    .pure-u-1
-                        .title-small
-                            A beautiful orm
-                        %h2.title
-                            Relations in a breeze
-                    .pure-u-1.home-p
-                        Defining models and
-                        %a.big{href: "{{=url('docs.page', ['latest', 'dal', 'relations'])}}"}
-                            relations
-                        in weppy is fast and concise.
-                        %br
-                        %br
-                        Defining the entities involved in your application shouldn't be a pain.
-                        %br
-                        weppy ORM apis are designed to avoid you the hassle of writing cryptic code and
-                        to be perfectly readable even for databases
-                        %em amateurs.
-                        %br
-                        %br
-                        Enjoy the elegance of your models and use your time to improve your product.
-            .pure-u-1.pure-u-md-1-2
-                .pure-g.m4p
-                    .pure-u-1
-                        .browser-window
-                            .top-bar
-                                .circles
-                                    .circle
-                                    .circle
-                                    .circle
-                            .window-content
-                                %pre
-                                    %code{language: 'python'}
-                                        :plain
-                                            class User(Model):
-                                                name = Field('string')
-                                                email = Field('string')
-                                                has_many('posts')
+            .maxw
+                .pure-u-1.pure-u-md-1-2
+                    .pure-g.m4p
+                        .pure-u-1
+                            .title-small
+                                A beautiful orm
+                            %h2.title
+                                Relations in a breeze
+                        .pure-u-1.home-p
+                            Defining models and
+                            %a.big{href: "{{=url('docs.page', ['latest', 'dal', 'relations'])}}"}
+                                relations
+                            in weppy is fast and concise.
+                            %br
+                            %br
+                            Defining the entities involved in your application shouldn't be a pain.
+                            %br
+                            weppy ORM apis are designed to avoid you the hassle of writing cryptic code and
+                            to be perfectly readable even for databases
+                            %em amateurs.
+                            %br
+                            %br
+                            Enjoy the elegance of your models and use your time to improve your product.
+                .pure-u-1.pure-u-md-1-2
+                    .pure-g.m4p
+                        .pure-u-1
+                            .browser-window
+                                .top-bar
+                                    .circles
+                                        .circle
+                                        .circle
+                                        .circle
+                                .window-content
+                                    %pre
+                                        %code{language: 'python'}
+                                            :plain
+                                                from weppy.orm import Model, Field, has_many, belongs_to
 
-                                                validation = {
-                                                    'email': {'is': 'email'}
-                                                }
+                                                class User(Model):
+                                                    name = Field('string')
+                                                    email = Field('string')
+                                                    has_many('posts')
 
-                                            class Post(Model):
-                                                belongs_to('user')
-                                                body = Field('text')
+                                                    validation = {
+                                                        'email': {'is': 'email'}
+                                                    }
 
-                                                validation = {
-                                                    'body': {'presence': True}
-                                                }
+                                                class Post(Model):
+                                                    belongs_to('user')
+                                                    body = Field('text')
+
+                                                    validation = {
+                                                        'body': {'presence': True}
+                                                    }

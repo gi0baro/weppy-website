@@ -1,17 +1,15 @@
-from datetime import datetime
-from weppy.dal import Model, Field
+# -*- coding: utf-8 -*-
+
+from weppy import now
+from weppy.orm import Model, Field
 
 
 class Version(Model):
-    tablename = "versions"
-
     name = Field()
     gittag = Field()
 
 
 class Extension(Model):
-    tablename = "extensions"
-
     name = Field()
     slug = Field()
     description = Field()
@@ -28,9 +26,9 @@ class Extension(Model):
     updated = Field('datetime')
 
     default_values = {
-        'updated': lambda: datetime.utcnow()
+        'updated': now
     }
 
     update_values = {
-        'updated': lambda: datetime.utcnow()
+        'updated': now
     }

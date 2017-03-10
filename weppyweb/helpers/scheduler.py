@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from datetime import datetime, timedelta
 from weppyweb import redis
 from .fetch import update_base, update_extensions
@@ -29,7 +31,7 @@ class Scheduler(object):
 
     def create_jobs(self):
         # version and docs grab
-        date = datetime.utcnow()+timedelta(seconds=15)
+        date = datetime.utcnow() + timedelta(seconds=15)
         job = self.scheduler.schedule(
             scheduled_time=date,
             func=update_base,
@@ -38,7 +40,7 @@ class Scheduler(object):
         )
         self.my_jobs.append((job.id, date))
         # extensions grab
-        date = datetime.utcnow()+timedelta(seconds=45)
+        date = datetime.utcnow() + timedelta(seconds=45)
         job = self.scheduler.schedule(
             scheduled_time=date,
             func=update_extensions,

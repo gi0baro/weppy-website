@@ -1,33 +1,14 @@
 # weppy website development dockerfile
-FROM ubuntu:14.04
+FROM python:2.7
 
 MAINTAINER gi0baro
 
-# Remove some useless errors which appear when installing packages with apt
-ENV DEBIAN_FRONTEND noninteractive
-ENV TERM linux
-
-# Install required packages
-RUN apt-get update
-RUN apt-get install -y software-properties-common g++
-RUN apt-get install -y git python python-dev python-setuptools wget
-
-# Build dependencies
-RUN easy_install pip
-
-## TEMP: weppy master
-#WORKDIR /root
-#ADD http://www.random.org/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new uuid
-#RUN git clone https://github.com/gi0baro/weppy.git weppy
-#RUN cd weppy && python setup.py install
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN apt-get install -y nodejs
+RUN apt-get install -y libjpeg-dev libfreetype6-dev zlib1g-dev libpq-dev
 
 # install python requirements
-RUN mkdir /home/app
-ADD requirements.txt /home/app/
+RUN mkdir -p /usr/src/app
+COPY requirements.txt /usr/src/app
+RUN pip install -r /usr/src/app/requirements.txt --src /usr/src/app
 WORKDIR /home/app
-RUN pip install -r requirements.txt
-
-# Cleanup to reduce image size
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/*
-RUN rm -rf /tmp/pip-build-root

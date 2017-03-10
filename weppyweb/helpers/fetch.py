@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import requests
 import os
 import shutil
@@ -51,7 +53,7 @@ class Getter(object):
             assert r.status_code == 200
             self.data = r.text
         except:
-            app.log.debug("GETTER: Error requesting "+url)
+            app.log.debug("GETTER: Error requesting " + url)
             self.data = None
 
     def download(self, url, fname=None):
@@ -61,7 +63,8 @@ class Getter(object):
         r = requests.get(url, timeout=15, stream=True)
         if r.status_code == 200:
             with open(fname, "wb") as f:
-                app.log.debug("GETTER: downloading file from url: "+url+"...")
+                app.log.debug(
+                    "GETTER: downloading file from url: " + url + "...")
                 for chunk in r.iter_content():
                     f.write(chunk)
             app.log.debug("GETTER: download completed.")
@@ -75,13 +78,14 @@ def _update_version():
         lines = f.readlines()
     for i in range(0, len(lines)):
         if lines[i].startswith("---"):
-            if lines[i-1].startswith("Version"):
-                n = lines[i-1].split("Version ")[1]
-                codename = lines[i+2].split(", codename ")[1]
+            if lines[i - 1].startswith("Version"):
+                n = lines[i - 1].split("Version ")[1]
+                codename = lines[i + 2].split(", codename ")[1]
                 break
     redis.set("weppy:last_version", n + " " + codename)
 
 
+@db.with_connection
 def _update_docs(tags):
     versions = {}
     for tag in tags:
@@ -92,7 +96,6 @@ def _update_docs(tags):
         else:
             if float(tag[3:]) > float(versions[sub][2:]):
                 versions[sub] = tag[1:]
-    db._adapter.reconnect()
     upd_list = []
     for k, v in versions.items():
         row = db.Version(name=k)
@@ -145,11 +148,11 @@ def update_base():
     _update_docs(getter.tags())
 
 
+@db.with_connection
 def _update_extensions():
     os.chdir(os.path.join(app.root_path, "tmp", "registry"))
     Popen(["git", "checkout", "stable"]).wait()
     Popen(['git', 'pull']).wait()
-    db._adapter.reconnect()
     src_path = os.path.join(app.root_path, "tmp", "registry", "extensions")
     for name in os.listdir(src_path):
         statusfile = open(os.path.join(src_path, name, 'status.yml'), 'r')
