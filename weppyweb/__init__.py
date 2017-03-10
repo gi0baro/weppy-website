@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-from weppy import App, Cache
+from weppy import App
+from weppy.cache import Cache, RedisCache
 from weppy.orm import Database
 from weppy_haml import Haml
 from weppy_sentry import Sentry
@@ -23,12 +24,8 @@ from .models import Version, Extension
 db = Database(app, auto_migrate=True)
 db.define_models(Version, Extension)
 
-redis = Redis(
-    host=app.config.redis.host,
-    port=app.config.redis.port,
-    db=app.config.redis.db)
-
-cache = Cache()
+redis = Redis(**app.config.redis)
+cache = Cache(redis=RedisCache(**app.config.redis))
 
 app.pipeline = [db.pipe]
 
