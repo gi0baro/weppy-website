@@ -11,7 +11,7 @@ from redis import Redis
 
 ## init our app
 app = App(__name__)
-app.config.static_version = '1.3.0'
+app.config.static_version = '1.4.0'
 app.config.static_version_urls = True
 app.config.url_default_namespace = "main"
 app.config_from_yaml('redis.yml', 'redis')
