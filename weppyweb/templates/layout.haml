@@ -21,6 +21,7 @@
         - include_static 'main.css'
         - include_static 'highlight.css'
         - include_static 'highlight.pack.js'
+        - include_static 'pygments.css'
         - include_static 'chart.min.js'
 
         - block head
@@ -49,8 +50,5 @@
                 = "©"
                 = current.request.now.year
                 Giovanni Barillari
-
-        :javascript
-            hljs.initHighlightingOnLoad();
 
         - include 'analytics.haml'
