@@ -18,8 +18,8 @@
                                         from weppy.tools import service
 
                                         class Task(Model):
-                                            name = Field()
-                                            is_completed = Field('bool', default=False)
+                                            name = Field.string()
+                                            is_completed = Field.bool(default=False)
 
                                         app = App(__name__)
                                         db = Database(app)

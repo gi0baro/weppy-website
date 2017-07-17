@@ -1,5 +1,5 @@
-weppy >= 1.0
-weppy-Haml >= 0.3
+weppy >= 1.1
+weppy-Haml >= 0.4
 weppy-Sentry >= 0.4.1
 markdown2 == 2.3.4
 pygments == 2.2.0

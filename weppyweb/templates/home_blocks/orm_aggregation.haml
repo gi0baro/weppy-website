@@ -14,8 +14,8 @@
                                 %code{language: 'python'}
                                     :plain
                                         class Event(Model):
-                                            location = Field()
-                                            happens_at = Field('datetime')
+                                            location = Field.string()
+                                            happens_at = Field.datetime()
 
                                         db.define_models(Event)
 

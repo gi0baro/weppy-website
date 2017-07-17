@@ -22,8 +22,8 @@ class Extension(Model):
     bugtracker = Field()
     license = Field()
     status = Field()
-    data = Field('text')
-    updated = Field('datetime')
+    data = Field.text()
+    updated = Field.datetime()
 
     default_values = {
         'updated': now

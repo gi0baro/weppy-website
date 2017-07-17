@@ -40,8 +40,8 @@
                                                 from weppy.orm import Model, Field, has_many, belongs_to
 
                                                 class User(Model):
-                                                    name = Field('string')
-                                                    email = Field('string')
+                                                    name = Field.string()
+                                                    email = Field.string()
                                                     has_many('posts')
 
                                                     validation = {
@@ -50,7 +50,7 @@
 
                                                 class Post(Model):
                                                     belongs_to('user')
-                                                    body = Field('text')
+                                                    body = Field.text()
 
                                                     validation = {
                                                         'body': {'presence': True}
