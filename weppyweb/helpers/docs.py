@@ -3,7 +3,7 @@
 import os
 from yaml import load as ymlload
 from markdown2 import markdown
-from weppyweb import app, cache
+from .. import app, cache
 
 _docs_path = os.path.join(app.root_path, 'docs')
 
@@ -15,14 +15,13 @@ def _build_filepath(version, name, parent=None):
     return os.path.join(*args)
 
 
+@cache('docs_versions', duration=600)
 def get_versions():
-    def _get():
-        versions = []
-        for name in os.listdir(_docs_path):
-            if name != "dev" and os.path.isdir(os.path.join(_docs_path, name)):
-                versions.append(name)
-        return sorted(versions, reverse=True)
-    return cache('docs_versions', _get, 600)
+    versions = []
+    for name in os.listdir(_docs_path):
+        if name != "dev" and os.path.isdir(os.path.join(_docs_path, name)):
+            versions.append(name)
+    return sorted(versions, reverse=True)
 
 
 def get_latest_version():
@@ -41,67 +40,56 @@ def _get_lines(version, name, parent=None):
     return lines
 
 
-def _get_chapter(version, name, parent=None):
-    def _get():
-        lines = _get_lines(version, name, parent)
-        chapter = name
-        for i in range(0, len(lines)):
-            if lines[i].startswith("==="):
-                chapter = lines[i - 1]
-                break
-        return chapter
-    cname = parent + "." + name if parent else name
-    return cache('docs_' + version + '_' + cname + '_chapter', _get, 300)
+def get_chapter(version, name, parent=None):
+    lines = _get_lines(version, name, parent)
+    chapter = name
+    for i in range(0, len(lines)):
+        if lines[i].startswith("==="):
+            chapter = lines[i - 1]
+            break
+    return chapter
 
 
 def get_sections(version, name, parent=None):
-    def _get():
-        lines = _get_lines(version, name, parent)
-        sections = []
-        for i in range(0, len(lines)):
-            if lines[i].startswith("---"):
-                sections.append(lines[i - 1].replace("\\", ""))
-        return sections
-    cname = parent + "." + name if parent else name
-    return cache('docs_' + version + '_' + cname + '_sections', _get, 300)
+    lines = _get_lines(version, name, parent)
+    sections = []
+    for i in range(0, len(lines)):
+        if lines[i].startswith("---"):
+            sections.append(lines[i - 1].replace("\\", ""))
+    return sections
 
 
 def _get_subpages(version, parent, pages):
-    def _get():
-        rv = []
-        for page in pages:
-            title = _get_chapter(version, page, parent)
-            sections = get_sections(version, page, parent)
-            rv.append((title, page, [], sections))
-        return rv
-    return cache('docs_' + version + '_' + parent + '_subpages', _get, 300)
+    rv = []
+    for page in pages:
+        title = get_chapter(version, page, parent)
+        sections = get_sections(version, page, parent)
+        rv.append((title, page, [], sections))
+    return rv
 
 
 def build_tree(version):
-    def _get():
-        with open(os.path.join(folder, 'tree.yml')) as f:
-            tree = ymlload(f)
-        complete_tree = []
-        subpaged = []
-        for name in tree:
-            if isinstance(name, dict):
-                rname = list(name)[0]
-                subpaged.append(rname)
-                ch_name = _get_chapter(version, rname)
-                sub_tree = _get_subpages(version, rname, name[rname])
-                complete_tree.append((ch_name, rname, sub_tree, []))
-            else:
-                if name in subpaged:
-                    continue
-                ch_name = _get_chapter(version, name)
-                sub_tree = get_sections(version, name)
-                complete_tree.append((ch_name, name, [], sub_tree))
-        return complete_tree
-
     folder = os.path.join(_docs_path, version)
     if not os.path.exists(folder):
         return None
-    return cache('docs_' + version + '_tree', _get, 300)
+    with open(os.path.join(folder, 'tree.yml')) as f:
+        tree = ymlload(f)
+    complete_tree = []
+    subpaged = []
+    for name in tree:
+        if isinstance(name, dict):
+            rname = list(name)[0]
+            subpaged.append(rname)
+            ch_name = get_chapter(version, rname)
+            sub_tree = _get_subpages(version, rname, name[rname])
+            complete_tree.append((ch_name, rname, sub_tree, []))
+        else:
+            if name in subpaged:
+                continue
+            ch_name = get_chapter(version, name)
+            sub_tree = get_sections(version, name)
+            complete_tree.append((ch_name, name, [], sub_tree))
+    return complete_tree
 
 
 def get_text(version, name, parent=None):
@@ -111,14 +99,11 @@ def get_text(version, name, parent=None):
 
 
 def get_html(version, name, parent=None):
-    def _parse():
-        extras = ['tables', 'fenced-code-blocks', 'header-ids']
-        return markdown(text, extras=extras).encode('utf-8')
-
     text = get_text(version, name, parent)
     if text is None:
         return text
-    return cache('docs_' + version + '_' + name + '_html', _parse, 300)
+    extras = ['tables', 'fenced-code-blocks', 'header-ids']
+    return markdown(text, extras=extras).encode('utf-8')
 
 
 def _navigation_tree_pos(tree, pname):

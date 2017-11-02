@@ -6,7 +6,7 @@ import shutil
 from subprocess import Popen, PIPE
 from yaml import load as ymlload
 from weppy.validators.process import Urlify
-from weppyweb import app, redis, db
+from .. import app, redis, db
 
 
 class GitGetter(object):

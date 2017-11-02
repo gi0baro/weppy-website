@@ -105,14 +105,20 @@ blockquote p {
     font-size: 1em;
 }
 
-code, pre {
+code {
     font-family: "Source Code Pro", monospace;
     font-size: 14px;
-    padding: 2px 4px;
-    color: #000;
-    background-color: rgba(0,0,0,0.04);
+    padding: 4px 8px;
     border-radius: 4px;
     margin: 0;
+}
+
+code {
+    background-color: rgba(0,0,0,0.05);
+}
+
+pre code {
+    display: block;
 }
 
 table caption+thead tr:first-child th, table caption+thead tr:first-child td, table colgroup+thead tr:first-child th, table colgroup+thead tr:first-child td, table thead:first-child tr:first-child th, table thead:first-child tr:first-child td {
@@ -316,11 +322,15 @@ h2.title {
     text-transform: uppercase;
 }
 
-[class *= "pure-u"].home-p {
+.home-p {
     font-family: "Open Sans", sans-serif;
     font-size: 1em;
     font-weight: 300;
     margin-top: 0.6em;
+}
+
+[class *= "pure-u"].home-p {
+    font-family: "Open Sans", sans-serif;
 }
 
 .sep {

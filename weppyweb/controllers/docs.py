@@ -2,10 +2,10 @@
 
 from weppy import response, abort, redirect, url, asis
 from weppy.validators.process import Urlify
-from weppyweb import app
-from weppyweb.helpers.docs import (
+from .. import app, cache
+from ..helpers.docs import (
     get_latest_version, get_versions, build_tree, get_sections, get_html,
-    _get_chapter, is_page, get_navigation)
+    get_chapter, is_page, get_navigation)
 
 
 docs = app.module(__name__, "docs", url_prefix="docs", template_folder="docs")
@@ -17,6 +17,7 @@ def index():
 
 
 @docs.route("/<str:version>")
+@cache.response(query_params=False, language=False, duration=600)
 def home(version):
     if version == 'latest':
         v = get_latest_version()
@@ -38,12 +39,12 @@ def home(version):
                 slug = Urlify(keep_underscores=True)(sv)[0]
                 sub_v.append((sv, u + "#" + slug))
         pages.append((v[0], u, sub_v))
-    #pages = [(v[0], url('.page', [version, v[1]]), v[2]) for v in tree]
     response.meta.title = "weppy - Docs"
     return dict(tree=pages, version=version, versions=["dev"] + get_versions())
 
 
 @docs.route("/<str:version>/<str:p>(/<str:subp>)?")
+@cache.response(query_params=False, language=False, duration=600)
 def page(version, p, subp):
     if version == 'latest':
         v = get_latest_version()
@@ -64,7 +65,7 @@ def page(version, p, subp):
     for s in _sections:
         sections.append((s, Urlify(keep_underscores=True)(s)[0]))
     body = asis(get_html(version, requested_page, parent))
-    title = _get_chapter(version, requested_page, parent)
+    title = get_chapter(version, requested_page, parent)
     response.meta.title = "weppy - Docs - " + title
     # for navigator
     prev, after = get_navigation(version, requested_page, parent)

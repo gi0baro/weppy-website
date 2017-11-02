@@ -12,23 +12,7 @@
                         .window-content
                             %pre
                                 %code{language: 'python'}
-                                    :plain
-                                        class Event(Model):
-                                            location = Field.string()
-                                            happens_at = Field.datetime()
-
-                                        db.define_models(Event)
-
-                                        events_count = Event.id.count()
-
-                                        db.where(
-                                            Event.happens_at.year() == 1955
-                                        ).select(
-                                            Event.location,
-                                            events_count,
-                                            groupby=Event.location,
-                                            orderby=~events_count,
-                                            having=(events_count > 10))
+                                    = code_blocks['orm_aggregation']
         .pure-u-1.pure-u-md-1-2
             .pure-g.m4p
                 .pure-u-1
@@ -36,13 +20,13 @@
                         A powerful query interface
                     %h2.title
                         Aggregation made easy
-                .pure-u-1.home-p
-                    Just forget underscore variables and raw sql strings.
-                    %br
-                    %br
-                    weppy comes with a powerful
-                    %a.big{href: "{{=url('docs.page', ['latest', 'dal', 'operations'])+'#making-queries'}}"}
-                        query interface
-                    that lets you aggregate your data using just the Python language.
-                    Need to count events happening in the same location for a specific year?
-                    weppy lets you do that in just some few elegant lines.
+                .pure-u-1
+                    %p.home-p
+                        Just forget underscore variables and raw sql strings.
+                    %p.home-p
+                        weppy comes with a powerful
+                        %a.big{href: "{{=url('docs.page', ['latest', 'dal', 'operations'])+'#making-queries'}}"}
+                            query interface
+                        that lets you aggregate your data using just the Python language.
+                    %p.home-p
+                        Need to count events happening in the same location for a specific year? weppy lets you do that in just some few elegant lines.

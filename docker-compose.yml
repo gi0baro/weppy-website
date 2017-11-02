@@ -1,6 +1,6 @@
 web:
   build: .
-  command: python run.py
+  command: weppy -a weppyweb run -h 0.0.0.0
   volumes:
     - .:/home/app
   ports:

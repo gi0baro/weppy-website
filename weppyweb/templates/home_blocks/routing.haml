@@ -12,27 +12,7 @@
                         .window-content
                             %pre
                                 %code{language: 'python'}
-                                    :plain
-                                        from weppy import App, request
-                                        from weppy.orm import Database, Model, Field
-                                        from weppy.tools import service
-
-                                        class Task(Model):
-                                            name = Field.string()
-                                            is_completed = Field.bool(default=False)
-
-                                        app = App(__name__)
-                                        db = Database(app)
-                                        db.define_models(Task)
-                                        app.pipeline = [db.pipe]
-
-                                        @app.route(methods='get')
-                                        @service.json
-                                        def tasks():
-                                            page = request.params.page or 1
-                                            return {
-                                                'tasks': Task.all().select(
-                                                    paginate=(page, 20))}
+                                    = code_blocks['routing']
         .pure-u-1.pure-u-md-1-2
             .pure-g.m4p
                 .pure-u-1
@@ -40,14 +20,12 @@
                         Write elegant code
                     %h2.title
                         Focus on your product
-                .pure-u.1.home-p
-                    You should spend more time on your product rather than the underlying framework.
-                    weppy is
-                    %em the framework for humans
-                    because is designed to simplify your development process,
-                    with a syntax made to be simple, easy to learn and understand.
-                    %br
-                    %br
-                    Don't waste your time between routers and uncomfortable patterns:
-                    every time you write down a route for your application,
-                    everything is just clearly stated in front of your eyes.
+                .pure-u.1
+                    %p.home-p
+                        You should spend more time on your product rather than the underlying framework.
+                    %p.home-p
+                        weppy is
+                        %em the framework for humans
+                        because is designed to simplify your development process, with a syntax made to be simple, easy to learn and understand.
+                    %p.home-p
+                        Don't waste your time between routers and uncomfortable patterns: every time you write down a route for your application, everything is just clearly stated in front of your eyes.

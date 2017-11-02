@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, timedelta
-from weppyweb import redis
+from .. import redis
 from .fetch import update_base, update_extensions
 
 

@@ -8,19 +8,20 @@ from weppy_haml import Haml
 from weppy_sentry import Sentry
 from redis import Redis
 
-
-## init our app
 app = App(__name__)
-app.config.static_version = '1.4.0'
+
+app.config.static_version = '1.5.0'
 app.config.static_version_urls = True
 app.config.url_default_namespace = "main"
 app.config_from_yaml('redis.yml', 'redis')
 app.config_from_yaml('sentry.yml', 'Sentry')
 app.config.Haml.set_as_default = True
+
 app.use_extension(Haml)
 app.use_extension(Sentry)
 
 from .models import Version, Extension
+
 db = Database(app, auto_migrate=True)
 db.define_models(Version, Extension)
 

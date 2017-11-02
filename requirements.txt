@@ -1,4 +1,4 @@
-weppy >= 1.1
+weppy == 1.2.4
 weppy-Haml >= 0.4
 weppy-Sentry >= 0.4.1
 markdown2 == 2.3.4

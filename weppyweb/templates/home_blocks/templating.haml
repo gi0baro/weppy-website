@@ -11,20 +11,16 @@
                                 Forget about templating syntax.
                                 %br
                                 Use Python.
-                        .pure-u-1.home-p
-                            Unlike many frameworks, weppy won't propose you a new templating language, with a
-                            different syntax and logic: you shouldn't lose time for that.
-                            %br
-                            %br
-                            The
-                            %a.big{href: "{{=url('docs.page', ['latest', 'templates'])}}"}
-                                templating engine
-                            shipped with weppy is indeed just
-                            pure python code embedded in your templates,
-                            with some facilities added to the game.
-                            %br
-                            %br
-                            Use the same language for both the back-end logic and the front-end one.
+                        .pure-u-1
+                            %p.home-p
+                                Unlike many frameworks, weppy won't propose you a new templating language, with a different syntax and logic: you shouldn't lose time for that.
+                            %p.home-p
+                                The
+                                %a.big{href: "{{=url('docs.page', ['latest', 'templates'])}}"}
+                                    templating engine
+                                shipped with weppy is indeed just pure python code embedded in your templates, with some facilities added to the game.
+                            %p.home-p
+                                Use the same language for both the back-end logic and the front-end one.
                 .pure-u-1.pure-u-md-1-2
                     .pure-g.m4p
                         .pure-u-1
@@ -37,4 +33,4 @@
                                 .window-content
                                     %pre
                                         %code{language: 'html', style: 'margin-top: -40px;'}
-                                            = tcode
+                                            = code_blocks['templates']

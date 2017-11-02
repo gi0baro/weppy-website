@@ -1,5 +1,13 @@
 - extend 'layout.haml'
 
+- block head
+:css
+    .doc-content {
+        font-size: 17px;
+        font-weight: 300;
+    }
+- end
+
 .pure-g.m30
     .pure-u-1.pure-u-lg-1-5
         .pure-g.m20{style: "margin-top: 6em;"}
@@ -25,7 +33,7 @@
                 %h3 Search
             .pure-u-1
                 %input#doc-search{type: 'text'}
-    .pure-u-1.pure-u-lg-3-5
+    .pure-u-1.pure-u-lg-3-5.doc-content
         %h1 Welcome to weppy
         %p
             The documentation is divided into different parts. We recommend you to read the 'Getting Started' chapter to have a good introduction to the framework. Besides this
