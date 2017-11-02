@@ -1,10 +1,22 @@
+- page_title = current.response.meta.title or "weppy - the web framework for humans"
+
 !!! 5
 %html{lang: "{{=current.request.language or 'en'}}"}
-    %head
-        %title {{=current.response.meta.title or "weppy - the web framework for humans"}}
-        %meta{name: "viewport", content:"width=device-width, initial-scale=1"}
+    %head{prefix: "og: http://ogp.me/ns#"}
+        %title {{=page_title}}
+
+        %meta{charset: "utf-8"}
+        %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
 
         - include_meta
+
+        %meta{property: "og:locale", content: "en_US"}
+        %meta{property: "og:title", content: '{{=page_title}}'}
+        - if current.response.meta.description
+            %meta{property: "og:description", content: "{{=current.response.meta.description}}"}
+        %meta{property: "og:site_name", content: "weppy framework"}
+        %meta{property: "og:type", content: "object"}
+        %meta{property: "og:url", content: "{{=current.request.scheme + '://' + current.request.hostname + current.request.path_info}}"}
 
         - include_helpers
 
